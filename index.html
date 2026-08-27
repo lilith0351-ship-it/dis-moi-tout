@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,7 +13,7 @@
 .hero-card{background:linear-gradient(135deg,#fff,#fbf2f7);border-radius:28px;padding:25px;border:1px solid #fff;box-shadow:0 18px 60px #5b40540d}.profile{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center}.avatar{width:150px;height:150px;border-radius:28px;background:linear-gradient(145deg,var(--rose),var(--lav));display:grid;place-items:center;font-size:65px}.name{font-family:Georgia,serif;font-size:35px;margin:0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chip{padding:7px 11px;border-radius:999px;background:#f5edf2;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.stat{background:#fff;border-radius:16px;padding:13px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}
 .list{display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.item small{color:var(--muted)}
 .meter{height:10px;background:#eee8ee;border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:linear-gradient(90deg,#dba9bd,#9e83c4);border-radius:99px}
-.quote{font-family:Georgia,serif;font-size:24px;line-height:1.35}.danger{background:#fff1f3}.footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+.quote{font-family:Georgia,serif;font-size:24px;line-height:1.35}.danger{background:#fff1f3}.submit-card{text-align:center;margin-top:14px}.submit-card .save{font-size:15px;padding:14px 22px}.footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.profile{grid-template-columns:1fr}.avatar{width:100%;height:170px}.stats{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:38px}}
 </style>
 </head>
@@ -48,8 +48,8 @@
       <div class="card">
         <h2>Your life</h2>
         <div class="field"><label>Job</label><input id="job" placeholder="Your job"></div>
-        <div class="field"><label>Education</label><textarea id="education" placeholder="学校、专业、国家……"></textarea></div>
-        <div class="field"><label>Family background</label><textarea id="family" placeholder="兄弟姐妹、父母Job、成长经历……"></textarea></div>
+        <div class="field"><label>Education</label><textarea id="education" placeholder="School, major, country..."></textarea></div>
+        <div class="field"><label>Family background</label><textarea id="family" placeholder="Siblings, parents, childhood..."></textarea></div>
         <div class="field"><label>Languages</label><input id="languages" placeholder=" / English / ..."></div>
       </div>
       <div class="card full">
@@ -58,7 +58,7 @@
         <div class="field"><label>What do you like most about yourself?</label><textarea id="best"></textarea></div>
         <div class="field"><label>What do you think is your most annoying trait?</label><textarea id="worst"></textarea></div>
         <button class="save" onclick="save()">Save answers</button> <button class="save" style="background:#eee;color:#292335" onclick="clearAll()">Clear all</button>
-        <div class="hint" id="savehint">保存后刷新页面也不会丢。</div>
+        <div class="hint" id="savehint">Your answers are saved in this browser.</div>
       </div>
     </div>
   </section>
@@ -109,7 +109,7 @@
       </div>
       <div class="card full">
         <h2>❤️ Our relationship timeline</h2>
-        <div class="field"><label>我们初次约会你对我印象最深刻的事情是什么？</label><textarea id="timeline" placeholder=""></textarea></div>
+        <div class="field"><label>What made the biggest impression on you when we first went on a date?</label><textarea id="timeline" placeholder=""></textarea></div>
       </div>
     </div>
   </section>
@@ -129,7 +129,7 @@
       </div>
       <div class="card full danger">
         <h2>📝 Your private notes</h2>
-        <div class="field"><label>Anything you want me to know</label><textarea id="secret" placeholder="这里可以写任何你想记住的细节……"></textarea></div>
+        <div class="field"><label>Anything you want me to know</label><textarea id="secret" placeholder="Anything you want me to know..."></textarea></div>
       </div>
     </div>
   </section>
@@ -137,11 +137,11 @@
   <section id="dashboard" class="panel">
     <div class="hero-card">
       <div class="profile">
-        <div class="avatar">🇫🇷</div>
+        <div class="avatar">🥐</div>
         <div>
           <h2 class="name" id="dname">Your profile</h2>
           <div class="chips"><span class="chip" id="dmbti">MBTI</span><span class="chip" id="dzodiac">Zodiac</span><span class="chip" id="djob">Job</span></div>
-          <div class="quote">“The most unnecessary database in the world. Unfortunately, also the most important.”</div>
+          <div class="quote">“The most unnecessary questionnaire in the world. Unfortunately, also the most important.”</div>
         </div>
       </div>
       <div class="stats">
@@ -163,22 +163,140 @@
     </div>
   </section>
 
-  <div class="footer">Private archive · no cloud · just you and your suspicious amount of information about one  man.</div>
+
+  <div class="card full submit-card">
+    <h2>🥐 Ready?</h2>
+    <p class="hint">When you’re done, send your answers to me. You can still edit anything before submitting.</p>
+    <button class="save" id="submitBtn" onclick="submitAnswers()">Tell me everything 🥐</button>
+    <div class="hint" id="submithint"></div>
+  </div>
+
+  <div class="footer">Private questionnaire · your answers are sent only when you submit them.</div>
 </div>
 <script>
-const ids=["name","birthday","zodiac","age","origin","height","mbti","job","education","family","languages","keywords","best","worst","food","foodno","restaurants","drink","nightlife","music","travel","hobbies","sports","culture","style","quirks","firstdate","firstspark","firstfight","bestdate","jealous","soothe","dislike_me","need","timeline","cutequotes","badquotes","habits","happy","sad","secret"];
-function load(){ids.forEach(id=>{let v=localStorage.getItem("boy_"+id);if(v!==null)document.getElementById(id).value=v});updateDash()}
-function clearAll(){if(confirm("确定清空整个法国男档案吗？")){ids.forEach(id=>{localStorage.removeItem("boy_"+id);document.getElementById(id).value=""});updateDash();document.getElementById("savehint").textContent="已清空。重新开始一份全新的档案。"}}
-function save(){ids.forEach(id=>localStorage.setItem("boy_"+id,document.getElementById(id).value));document.getElementById("savehint").textContent="✓ 已保存。这个档案现在正式进入机密状态。";updateDash()}
-function tab(id,b){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");updateDash()}
-function updateDash(){
-let g=id=>document.getElementById(id).value||"—";
-document.getElementById("dname").textContent=g("name")==="—"?"Your profile":g("name");
-document.getElementById("dmbti").textContent=g("mbti");document.getElementById("dzodiac").textContent=g("zodiac");document.getElementById("djob").textContent=g("job");document.getElementById("dage").textContent=g("age");document.getElementById("dheight").textContent=g("height");
-document.getElementById("summary").innerHTML=[["关键词",g("keywords")],["来自",g("origin")],["教育",g("education")],["最喜欢的地方",g("best")],["最抓狂的地方",g("worst")],["你最不喜欢我的哪一点",g("dislike_me")]].map(x=>`<div class="item"><b>${escapeHtml(x[0])}</b><small>${escapeHtml(x[1])}</small></div>`).join("")
+const ACCESS_KEY = "f8c479c8-dabe-4e2b-af99-7efba7295f15";
+const ids = [
+  "name","birthday","zodiac","age","origin","height","mbti","job","education",
+  "family","languages","keywords","best","worst","food","foodno","restaurants",
+  "drink","nightlife","music","travel","hobbies","sports","culture","style",
+  "quirks","firstspark","firstfight","bestdate","jealous","soothe","dislike_me",
+  "need","timeline","badquotes","habits","happy","sad","secret"
+];
+
+function el(id){ return document.getElementById(id); }
+
+function load(){
+  ids.forEach(id=>{
+    const node=el(id);
+    const v=localStorage.getItem("dis_moi_"+id);
+    if(node && v!==null) node.value=v;
+  });
+  updateDash();
 }
-function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-ids.forEach(id=>document.getElementById(id).addEventListener("input",updateDash));load();
+
+function clearAll(){
+  if(confirm("Clear all your answers?")){
+    ids.forEach(id=>{
+      localStorage.removeItem("dis_moi_"+id);
+      const node=el(id);
+      if(node) node.value="";
+    });
+    updateDash();
+    el("savehint").textContent="Cleared. Start a fresh set of answers.";
+  }
+}
+
+function save(){
+  ids.forEach(id=>{
+    const node=el(id);
+    if(node) localStorage.setItem("dis_moi_"+id,node.value);
+  });
+  el("savehint").textContent="✓ Saved locally.";
+  updateDash();
+}
+
+function tab(id,b){
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+  el(id).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  updateDash();
+}
+
+function updateDash(){
+  const g=id=>(el(id)?.value||"—");
+  el("dname").textContent=g("name")==="—"?"Your profile":g("name");
+  el("dmbti").textContent=g("mbti");
+  el("dzodiac").textContent=g("zodiac");
+  el("djob").textContent=g("job");
+  el("dage").textContent=g("age");
+  el("dheight").textContent=g("height");
+  const rows=[
+    ["Three words",g("keywords")],
+    ["From",g("origin")],
+    ["Education",g("education")],
+    ["Favorite thing about yourself",g("best")],
+    ["Most annoying trait",g("worst")],
+    ["What you like least about me",g("dislike_me")]
+  ];
+  el("summary").innerHTML=rows.map(x=>
+    `<div class="item"><b>${escapeHtml(x[0])}</b><small>${escapeHtml(x[1])}</small></div>`
+  ).join("");
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+async function submitAnswers(){
+  const btn=el("submitBtn");
+  const hint=el("submithint");
+  btn.disabled=true;
+  btn.textContent="Sending…";
+  hint.textContent="";
+
+  const data = {
+    access_key: ACCESS_KEY,
+    subject: "Dis-moi tout — New answers",
+    from_name: el("name")?.value || "Anonymous",
+    email: el("email")?.value || "",
+    botcheck: ""
+  };
+
+  ids.forEach(id=>{
+    const node=el(id);
+    if(node) data[id]=node.value;
+  });
+
+  try{
+    const response=await fetch("https://api.web3forms.com/submit",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify(data)
+    });
+    const result=await response.json();
+
+    if(result.success){
+      hint.innerHTML="❤️ Merci. Your answers are safely with me.";
+      btn.textContent="Sent ❤️";
+      ids.forEach(id=>localStorage.removeItem("dis_moi_"+id));
+    }else{
+      throw new Error(result.message || "Submission failed");
+    }
+  }catch(error){
+    hint.textContent="Something went wrong. Please try again.";
+    btn.disabled=false;
+    btn.textContent="Tell me everything 🥐";
+  }
+}
+
+ids.forEach(id=>{
+  const node=el(id);
+  if(node) node.addEventListener("input",updateDash);
+});
+load();
 </script>
 </body>
 </html>
