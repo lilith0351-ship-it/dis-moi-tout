@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dis-moi tout 🥐</title>
+<style>
+:root{--ink:#241f2d;--muted:#83798b;--paper:#fffdf9;--rose:#f2d8df;--lav:#e8ddf5;--line:#eee6ed;--accent:#9b6682}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 10% 0%,#fff0f4,transparent 32%),radial-gradient(circle at 90% 20%,#eee6ff,transparent 35%),#f8f5f6}
+.wrap{max-width:1100px;margin:auto;padding:28px 18px 60px}.hero{padding:34px 6px 24px}.eyebrow{letter-spacing:.16em;text-transform:uppercase;font-size:12px;color:var(--accent);font-weight:800}.hero h1{font-family:Georgia,serif;font-size:48px;line-height:1.05;margin:10px 0 10px}.hero p{max-width:700px;color:var(--muted);font-size:16px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 20px}.nav button{border:0;background:#ffffffaa;padding:11px 15px;border-radius:14px;cursor:pointer;color:var(--ink)}.nav button.active{background:var(--ink);color:white}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:#ffffffc9;border:1px solid #fff;border-radius:22px;padding:20px;box-shadow:0 14px 45px #5b40540c}.full{grid-column:1/-1}.card h2{font-size:18px;margin:0 0 15px}.field{margin-bottom:14px}.field label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#fffdfd;border-radius:12px;padding:11px 12px;font:inherit;color:var(--ink);outline:none}.field textarea{min-height:110px;resize:vertical}.save{border:0;border-radius:13px;background:var(--ink);color:white;padding:12px 18px;font-weight:800;cursor:pointer}.hint{font-size:12px;color:var(--muted);margin-top:8px}
+.hero-card{background:linear-gradient(135deg,#fff,#fbf2f7);border-radius:28px;padding:25px;border:1px solid #fff;box-shadow:0 18px 60px #5b40540d}.profile{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center}.avatar{width:150px;height:150px;border-radius:28px;background:linear-gradient(145deg,var(--rose),var(--lav));display:grid;place-items:center;font-size:65px}.name{font-family:Georgia,serif;font-size:35px;margin:0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chip{padding:7px 11px;border-radius:999px;background:#f5edf2;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.stat{background:#fff;border-radius:16px;padding:13px}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}
+.list{display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.item small{color:var(--muted)}
+.meter{height:10px;background:#eee8ee;border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:linear-gradient(90deg,#dba9bd,#9e83c4);border-radius:99px}
+.quote{font-family:Georgia,serif;font-size:24px;line-height:1.35}.danger{background:#fff1f3}.footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.profile{grid-template-columns:1fr}.avatar{width:100%;height:170px}.stats{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:38px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">A little questionnaire · very important obviously</div>
+    <h1>Dis-moi tout 🥐</h1>
+    <p>A little questionnaire about you, because i wanna know everything.</p>
+  </header>
+
+  <div class="nav">
+    <button class="active" onclick="tab('profile',this)">👤 About You</button>
+    <button onclick="tab('likes',this)">🍸 Your Favorites</button>
+    <button onclick="tab('relationship',this)">💌 Our Relationship</button>
+    <button onclick="tab('quotes',this)">💬 Your Words & Little Things</button>
+    <button onclick="tab('dashboard',this)">📊 Summary</button>
+  </div>
+
+  <section id="profile" class="panel active">
+    <div class="grid">
+      <div class="card">
+        <h2>Identity</h2>
+        <div class="field"><label>Name / Nickname</label><input id="name" placeholder="Your name..."></div>
+        <div class="field"><label>Birthday</label><input id="birthday" placeholder="YYYY-MM-DD"></div>
+        <div class="field"><label>Zodiac sign</label><input id="zodiac" placeholder="Your zodiac sign"></div>
+        <div class="field"><label>Age</label><input id="age" type="number" placeholder="Your age"></div>
+        <div class="field"><label>City / Country</label><input id="origin" placeholder="City / Country"></div>
+        <div class="field"><label>Height</label><input id="height" placeholder="Height in cm"></div>
+        <div class="field"><label>MBTI</label><input id="mbti" placeholder="Your MBTI"></div>
+      </div>
+      <div class="card">
+        <h2>Your life</h2>
+        <div class="field"><label>Job</label><input id="job" placeholder="Your job"></div>
+        <div class="field"><label>Education</label><textarea id="education" placeholder="学校、专业、国家……"></textarea></div>
+        <div class="field"><label>Family background</label><textarea id="family" placeholder="兄弟姐妹、父母Job、成长经历……"></textarea></div>
+        <div class="field"><label>Languages</label><input id="languages" placeholder=" / English / ..."></div>
+      </div>
+      <div class="card full">
+        <h2>🧠 About you</h2>
+        <div class="field"><label>Three words that describe you</label><input id="keywords" placeholder="3 words..."></div>
+        <div class="field"><label>What do you like most about yourself?</label><textarea id="best"></textarea></div>
+        <div class="field"><label>What do you think is your most annoying trait?</label><textarea id="worst"></textarea></div>
+        <button class="save" onclick="save()">Save answers</button> <button class="save" style="background:#eee;color:#292335" onclick="clearAll()">Clear all</button>
+        <div class="hint" id="savehint">保存后刷新页面也不会丢。</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="likes" class="panel">
+    <div class="grid">
+      <div class="card">
+        <h2>🍝 Food</h2>
+        <div class="field"><label>Favorite foods</label><textarea id="food"></textarea></div>
+        <div class="field"><label>Foods you dislike / avoid</label><textarea id="foodno"></textarea></div>
+        <div class="field"><label>Favorite restaurants</label><textarea id="restaurants"></textarea></div>
+      </div>
+      <div class="card">
+        <h2>🍸 Drinks & Nightlife</h2>
+        <div class="field"><label>Drinks / cocktails</label><input id="drink"></div>
+        <div class="field"><label>Nightlife</label><textarea id="nightlife"></textarea></div>
+        <div class="field"><label>Music / artists</label><textarea id="music"></textarea></div>
+      </div>
+      <div class="card">
+        <h2>✈️ Lifestyle</h2>
+        <div class="field"><label>Travel preferences</label><textarea id="travel"></textarea></div>
+        <div class="field"><label>Hobbies</label><textarea id="hobbies"></textarea></div>
+        <div class="field"><label>Sports</label><textarea id="sports"></textarea></div>
+      </div>
+      <div class="card">
+        <h2>🎬 Culture</h2>
+        <div class="field"><label>Movies / shows / books</label><textarea id="culture"></textarea></div>
+        <div class="field"><label>Style / brands / fashion</label><textarea id="style"></textarea></div>
+        <div class="field"><label>Random little quirks</label><textarea id="quirks"></textarea></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="relationship" class="panel">
+    <div class="grid">
+      <div class="card">
+        <h2>💌 Our Relationship</h2>
+        
+        <div class="field"><label>The moment you first felt attracted to me</label><textarea id="firstspark"></textarea></div>
+        <div class="field"><label>Our first argument</label><textarea id="firstfight"></textarea></div>
+        <div class="field"><label>Your favorite date with me</label><textarea id="bestdate"></textarea></div>
+      </div>
+      <div class="card">
+        <h2>🫠 Danger Zone</h2>
+        <div class="field"><label>What makes you jealous?</label><textarea id="jealous"></textarea></div>
+        <div class="field"><label>What helps you feel better after an argument?</label><textarea id="soothe"></textarea></div><div class="field"><label>What do you like least about me?</label><textarea id="dislike_me" placeholder="Be honest..."></textarea></div>
+        <div class="field"><label>What do you need most from me?</label><textarea id="need"></textarea></div>
+      </div>
+      <div class="card full">
+        <h2>❤️ Our relationship timeline</h2>
+        <div class="field"><label>我们初次约会你对我印象最深刻的事情是什么？</label><textarea id="timeline" placeholder=""></textarea></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quotes" class="panel">
+    <div class="grid">
+      <div class="card">
+        <h2>💬 Your words</h2>
+        
+        <div class="field"><label>What is the most annoying thing i've ever said?</label><textarea id="badquotes" placeholder=""></textarea></div>
+      </div>
+      <div class="card">
+        <h2>🔎 Little details about you</h2>
+        <div class="field"><label>Your habits / little things you do</label><textarea id="habits"></textarea></div>
+        <div class="field"><label>What you do when you are happy</label><textarea id="happy"></textarea></div>
+        <div class="field"><label>What you do when you are upset</label><textarea id="sad"></textarea></div>
+      </div>
+      <div class="card full danger">
+        <h2>📝 Your private notes</h2>
+        <div class="field"><label>Anything you want me to know</label><textarea id="secret" placeholder="这里可以写任何你想记住的细节……"></textarea></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="panel">
+    <div class="hero-card">
+      <div class="profile">
+        <div class="avatar">🇫🇷</div>
+        <div>
+          <h2 class="name" id="dname">Your profile</h2>
+          <div class="chips"><span class="chip" id="dmbti">MBTI</span><span class="chip" id="dzodiac">Zodiac</span><span class="chip" id="djob">Job</span></div>
+          <div class="quote">“The most unnecessary database in the world. Unfortunately, also the most important.”</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="dage">—</b><span>Age</span></div>
+        <div class="stat"><b id="dheight">—</b><span>Height</span></div>
+        <div class="stat"><b>∞</b><span>Annoying level</span></div>
+        <div class="stat"><b>❤️</b><span>Your status</span></div>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card"><h2>✨ Your profile</h2><div class="list" id="summary"></div></div>
+      <div class="card"><h2>🧠 Things i still want to know</h2><div class="list">
+        <div class="item">Your favorite movie <small>To answer</small></div>
+        <div class="item">Your favorite cocktail <small>To answer</small></div>
+        <div class="item">Where you most want to go <small>To answer</small></div>
+        <div class="item">Something you could never accept <small>To answer</small></div>
+        <div class="item">What do you think i love most about you <small>Must answer</small></div>
+      </div></div>
+    </div>
+  </section>
+
+  <div class="footer">Private archive · no cloud · just you and your suspicious amount of information about one  man.</div>
+</div>
+<script>
+const ids=["name","birthday","zodiac","age","origin","height","mbti","job","education","family","languages","keywords","best","worst","food","foodno","restaurants","drink","nightlife","music","travel","hobbies","sports","culture","style","quirks","firstdate","firstspark","firstfight","bestdate","jealous","soothe","dislike_me","need","timeline","cutequotes","badquotes","habits","happy","sad","secret"];
+function load(){ids.forEach(id=>{let v=localStorage.getItem("boy_"+id);if(v!==null)document.getElementById(id).value=v});updateDash()}
+function clearAll(){if(confirm("确定清空整个法国男档案吗？")){ids.forEach(id=>{localStorage.removeItem("boy_"+id);document.getElementById(id).value=""});updateDash();document.getElementById("savehint").textContent="已清空。重新开始一份全新的档案。"}}
+function save(){ids.forEach(id=>localStorage.setItem("boy_"+id,document.getElementById(id).value));document.getElementById("savehint").textContent="✓ 已保存。这个档案现在正式进入机密状态。";updateDash()}
+function tab(id,b){document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");updateDash()}
+function updateDash(){
+let g=id=>document.getElementById(id).value||"—";
+document.getElementById("dname").textContent=g("name")==="—"?"Your profile":g("name");
+document.getElementById("dmbti").textContent=g("mbti");document.getElementById("dzodiac").textContent=g("zodiac");document.getElementById("djob").textContent=g("job");document.getElementById("dage").textContent=g("age");document.getElementById("dheight").textContent=g("height");
+document.getElementById("summary").innerHTML=[["关键词",g("keywords")],["来自",g("origin")],["教育",g("education")],["最喜欢的地方",g("best")],["最抓狂的地方",g("worst")],["你最不喜欢我的哪一点",g("dislike_me")]].map(x=>`<div class="item"><b>${escapeHtml(x[0])}</b><small>${escapeHtml(x[1])}</small></div>`).join("")
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+ids.forEach(id=>document.getElementById(id).addEventListener("input",updateDash));load();
+</script>
+</body>
+</html>
